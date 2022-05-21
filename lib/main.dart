@@ -55,7 +55,6 @@ class IdealData {
         _idealAgeFrom = idealFigure["원하는나이 시작"],
         _idealAgeTo = idealFigure["원하는나이 끝"];
 
-  // get IdealData
   // 1.2.4 test code
   testFigureInput() {
     print("원하는 머리둘레는 $_idealHeadSizeFrom cm ~ $_idealHeadSizeTo cm");
@@ -64,6 +63,10 @@ class IdealData {
   }
 
 // 1.3 method
+// 1.3.1 getter
+  get idealHeadSizeDataRange=>[_idealHeadSizeFrom,_idealHeadSizeTo];
+  get idealHeightDataRange=>[_idealHeightFrom,_idealHeightTo];
+  get idealAgeDataRange=>[_idealAgeFrom,_idealAgeTo];
 // todo::여기에서 IdealSelect의 메소드를 불러와서 승부를 봐야한다
 
 //1.3.2
@@ -116,13 +119,13 @@ mixin WomenData {
   // 2.2 method
   // 2.2.1 getter 지금은 같은 파일이지만 나중에는 달라질것이다 또 womenList는 모든 클레스에서 생긴 인스턴스에서 변하지 않는 값이라 static이다.
   // 2.2.2 모든 데이터 get
-  get data => _womenList;
+  get womenData => _womenList;
 
   // 2.2.3 데이터의 key 를 List<String> 으로 get
-  get dataKeyList => _womenList.keys.toList();
+  get womenDataKeyList => _womenList.keys.toList();
 
   // 2.2.4 데이터의 value 를 List<Mpa<String , num>> 으로 get
-  get dataValueList => _womenList.values.toList();
+  get womenDataValueList => _womenList.values.toList();
 }
 
 //4. class IdealSelect
@@ -137,9 +140,9 @@ class IdealSelect extends IdealData with HeadSizeChecker, HeightChecker, AgeChec
 
   //4.2.1 test code
   testIdealSelect() {
-    print(data.toString());
-    print(dataKeyList.toString());
-    print(dataValueList.toString());
+    print(womenData.toString());
+    print(womenDataKeyList.toString());
+    print(womenDataValueList.toString());
   }
 
 /*
