@@ -20,7 +20,7 @@ void main() {
 }
 
 // 1. class SelectIdeal (will extends abstract class IdealWomen )
-class SelectIdeal {
+class SelectIdeal extends IdealChecker{
   // 1.1 field
   // 1.1.0 원하는 수치의 범위를 받는다.
   // 1.1.1 idealHeadSize get this field from constructor
@@ -55,49 +55,50 @@ class SelectIdeal {
   }
 
 // 1.3 method
-// 1.3.1 headSizeChecker -> todo::2 allan 의 선택과 비교를 어떻게 할것인가?-> 더미데이터부터 먼저 완성 필요(특정할수가없다)
-// 1.3.2 heightChecker ->
-// 1.3.3 ageChecker ->
+// todo::여기에서 IdealWomen의 메소드를 불러와서 승부를 봐야한다
+
 }
 
 //todo::더미데이터의 완성
 /*
  목적 더미데이터의 완성
- 1. 어떤 형식의 데이터를 받을것인가 이상형 넣는 형식과 같은 Map<String num> 이 좋을듯.
- 2. 1번의 데이터를 List 로 받자 최종 형태는 List<Map<String, num>>이 될것이다.
- 3. 예시 작성 시작
+
+  1. type Map<String,Map<String,num>>  -> 이름으로 찾을 수 있도록 하는 것이 프로잭트가 커졌을 때 편할 것이다.
+  3. 예시 작성 시작
+  var womenList =
     {
-      "womenList": [
-        {
-          "name": "가나다",
-          "headSize": 50,
-          "height": 170,
-          "age": 30
-        },
-        {
-          "name": "라마사",
-          "headSize": 40,
-          "height": 180,
-          "age": 20
-        },
-        {
-          "name": "파차하",
-          "headSize": 60,
-          "height": 160,
-          "age": 40
-        }
-      ]
+      "가나다": {
+        "headSize": 50,
+        "height": 170,
+        "age": 30
+      },
+      "라마사": {
+        "headSize": 40,
+        "height": 180,
+        "age": 20
+      },
+      "파차하": {
+        "headSize": 60,
+        "height": 160,
+        "age": 40
+      }
     }
   4. import 'package:ideal_women_selection/dummyWomenList.json' as json_map_list
   5. dart pad 가 import 'dart:io';를 지원하지 않으므로 import 형식은 나중으로 미루자. todo:: 완성뒤에 json file import test
   6. 변수에 미리 넣어주자.
-
+  7. dummy data 의 형식이 이름으로 찾을 수 있게 바꿔야한다.
+  8. 데이터 다루는 법.
+      var a= womenList.values.toList();
+      var b= womenList.keys.toList();
+      print(a[0]);
+      print(b[0]);
 */
 
-// 2. class IdealWomen
-class IdealWomen {
+// 2. class WomenData
+class WomenData {
 // 2.1 field
-  final womenList =
+// 2.1.1 Map<Map<String,num>> womenList
+  final Map<String,Map<String,num>>  _womenList =
   {
     "가나다": {
       "headSize": 50,
@@ -115,21 +116,43 @@ class IdealWomen {
       "age": 40
     }
   };
+  // 2.2 method
+  // 2.2.1 getter 지금은 같은 파일이지만 나중에는 달라질것이다 또 womenList는 모든 클레스 인스턴스에서 변하지 않는 값이라 static이다.
 
-// 2.1.1 List<Map<String num>> womenList
+  // var a= womenList.values.toList();
+  // var b= womenList.keys.toList();
+  // print(a[0]);
+  // print(b[0]);
+  
 
-// 3. class SerializeWomenJsonData
-// 3.1 field
-// 3.1.1 name
-// 3.1.2 age
-// 3.1.3 height
-// 3.1.4 headSize
-// 3.2 method
-// 3.2.1 {"name":String "심주연" , "age":int 34 , "headSize": double 50 , "height": double 170}
+
+
+
 }
 
-//4. class IdealChecker
 
-//5. class HeadSizeChecker
-//6. class HeightChecker
-//7. class AgeChecker
+//4. class IdealChecker
+class IdealChecker extends WomenData with HeadSizeChecker,HeightChecker,AgeChecker{
+  //4.1 get womenList
+  //4.2 method
+
+/*
+*  todo::
+*  여기에서 womenList 를 탐색하게 될텐데 한번에 하나의 데이터 조각 (예:: womenList["가나다"]) 을 비교하게 되고
+*  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
+*/
+
+}
+
+//5. mixin HeadSizeChecker
+mixin HeadSizeChecker{
+
+}
+//6. mixin HeightChecker
+mixin HeightChecker{
+
+}
+//7. mixin AgeChecker
+mixin AgeChecker{
+
+}
