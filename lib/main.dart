@@ -27,51 +27,47 @@ void main() {
   // [{headSize: 50, height: 170, age: 30}, {headSize: 40, height: 180, age: 20}, {headSize: 60, height: 160, age: 40}]
 }
 
-// 1. class SelectIdeal (will extends abstract class IdealWomen )
+// 1. class SelectIdeal
 class SelectIdeal extends IdealChecker {
   // 1.1 field
   // 1.1.0 원하는 수치의 범위를 받는다.
   // 1.1.1 idealHeadSize get this field from constructor
-  var idealHeadSize_from;
-  var idealHeadSize_to;
+  var idealHeadSizeFrom;
+  var idealHeadSizeTo;
 
   // 1.1.1 idealHeightCheker get this field from constructor
-  var idealHeight_from;
-  var idealHeight_to;
+  var idealHeightFrom;
+  var idealHeightTo;
 
   // 1.1.1 idealAge get this field from constructor
-  var idealAge_from;
-  var idealAge_to;
+  var idealAgeFrom;
+  var idealAgeTo;
 
   // 1.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
   SelectIdeal.getIdealFigure(Map<String, num> idealFigure)
-      // 1.2.1 이상적인 머리크기의 시작 (idealHeadSize_from), 이상적인 머리크기의 끝 (idealHeadSize_to) 를 받는다
-      : idealHeadSize_from = idealFigure["원하는머리둘레 시작"],
-        idealHeadSize_to = idealFigure["원하는머리둘레 끝"],
-        // 1.2.2 이상적인 키의 시작  (idealHeight_from), 이상적인 키의 끝 (idealHeight_to) 를 받는다
-        idealHeight_from = idealFigure["원하는키 시작"],
-        idealHeight_to = idealFigure["원하는키 끝"],
-        // 1.2.3 이상적인 나이의 시작 (idealAge_from), 이상적인 나이의 끝 (idealAge_to) 를 받는다
-        idealAge_from = idealFigure["원하는나이 시작"],
-        idealAge_to = idealFigure["원하는나이 끝"];
+      // 1.2.1 이상적인 머리크기의 시작 (idealHeadSizeFrom), 이상적인 머리크기의 끝 (idealHeadSizeTo) 를 받는다
+      : idealHeadSizeFrom = idealFigure["원하는머리둘레 시작"],
+        idealHeadSizeTo = idealFigure["원하는머리둘레 끝"],
+        // 1.2.2 이상적인 키의 시작  (idealHeightFrom), 이상적인 키의 끝 (idealHeightTo) 를 받는다
+        idealHeightFrom = idealFigure["원하는키 시작"],
+        idealHeightTo = idealFigure["원하는키 끝"],
+        // 1.2.3 이상적인 나이의 시작 (idealAgeFrom), 이상적인 나이의 끝 (idealAgeTo) 를 받는다
+        idealAgeFrom = idealFigure["원하는나이 시작"],
+        idealAgeTo = idealFigure["원하는나이 끝"];
 
   // 1.2.4 test code
   testFigureInput() {
-    print("원하는 머리둘레는 $idealHeadSize_from cm ~ $idealHeadSize_to cm");
-    print("원하는 키는 $idealHeight_from cm ~ $idealHeight_to cm");
-    print("원하는 나이는 $idealAge_from 살 ~ $idealAge_to 살");
+    print("원하는 머리둘레는 $idealHeadSizeFrom cm ~ $idealHeadSizeTo cm");
+    print("원하는 키는 $idealHeightFrom cm ~ $idealHeightTo cm");
+    print("원하는 나이는 $idealAgeFrom 살 ~ $idealAgeTo 살");
   }
 
 // 1.3 method
 // todo::여기에서 IdealChecker의 메소드를 불러와서 승부를 봐야한다
-  testIdealChecker() {
-    print(IdealChecker().data.toString());
-    print(IdealChecker().dataKeyList.toString());
-    print(IdealChecker().dataValueList.toString());
-  }
+
+//1.3.2
 }
 
-//todo::더미데이터의 완성
 /*
  목적 더미데이터의 완성
 
@@ -134,17 +130,59 @@ class IdealChecker with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
   //4.1 get womenList
   //4.2 method
 
+  //4.2.1 test code
+  testIdealChecker() {
+    print(IdealChecker().data.toString());
+    print(IdealChecker().dataKeyList.toString());
+    print(IdealChecker().dataValueList.toString());
+  }
+
 /*
 *  todo::
 *  여기에서 womenList 를 탐색하게 될텐데 한번에 하나의 데이터 조각 (예:: womenList["가나다"]) 을 비교하게 되고
 *  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
 */
+  //4.2.2 idealChecker
+  //input:
+  //output:
 
+  idealChecker() {}
 }
 
 //5. mixin HeadSizeChecker
-mixin HeadSizeChecker {}
+mixin HeadSizeChecker {
+  //5.1 method
+  //5.1.1 headSizeCompare
+  //input: 여성(womanFigureHeadSize), 사용자 희망 시작(idealHeadSizeFrom), 끝(idealHeadSizeTo);
+  //output: 해당하는지 아닌지 (true/false)
+  headSizeCompare(num womanFigureHeadSize, num idealHeadSizeFrom,
+          num idealHeadSizeTo) =>
+      womanFigureHeadSize >= idealHeadSizeFrom &&
+              womanFigureHeadSize <= idealHeadSizeTo
+          ? true
+          : false;
+}
 //6. mixin HeightChecker
-mixin HeightChecker {}
+mixin HeightChecker {
+  //6.1 method
+  //6.1.1 heightCompare
+  //input: 여성(womanFigureHeight), 사용자 희망 시작(idealHeightFrom), 끝(idealHeightSizeTo);
+  //output: 해당하는지 아닌지 (true/false)
+  heightCompare(
+          num womanFigureHeight, num idealHeightFrom, num idealHeightSizeTo) =>
+      womanFigureHeight >= idealHeightFrom &&
+              womanFigureHeight <= idealHeightSizeTo
+          ? true
+          : false;
+}
 //7. mixin AgeChecker
-mixin AgeChecker {}
+mixin AgeChecker {
+  //6.2 method
+  //6.2.1 ageCompare
+  //input: 여성(womanFigureAge), 사용자 희망 시작(idealAgeFrom), 끝(idealAgeTo);
+  //output: 해당하는지 아닌지 (true/false)
+  ageCompare(num womanFigureAge, num idealAgeFrom, num idealAgeTo) =>
+      womanFigureAge >= idealAgeFrom && womanFigureAge <= idealAgeTo
+          ? true
+          : false;
+}
