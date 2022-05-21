@@ -11,20 +11,31 @@ void main() {
     "원하는나이 끝": 40
   };
   //input Map<String, num> idealFigure
-  var test = IdealSelect.getIdealFigure(idealFigure);
+  var test = IdealSelector.getIdealFigure(idealFigure);
   //idealFigure Test Part
-  test.testFigureInput();
-  //testFigure output:
+  // test.testFigureInput();
+  //testFigure output::
   //원하는 머리둘레는 40 cm ~ 50 cm
   //원하는 키는 160 cm ~ 170 cm
   //원하는 나이는 20 살 ~ 40 살
 
-  //class IdealSelect method Test Part
-  test.testIdealSelect();
-  //testIdealSelect output:
+  //class IdealSelector method Test Part
+  // test.testIdealSelector();
+  //testIdealSelector output::
   // {가나다: {headSize: 50, height: 170, age: 30}, 라마사: {headSize: 40, height: 180, age: 20}, 파차하: {headSize: 60, height: 160, age: 40}}
   // [가나다, 라마사, 파차하]
   // [{headSize: 50, height: 170, age: 30}, {headSize: 40, height: 180, age: 20}, {headSize: 60, height: 160, age: 40}]
+
+
+  // test.testDataRangeGet();
+  //testDataRangeGet output::
+  // [40, 50]
+  // [160, 170]
+  // [20, 40]
+
+
+  test.idealChecker();
+  //output:: 가나다
 }
 
 // 1. class IdealData
@@ -69,9 +80,7 @@ class IdealData {
   get idealHeightDataRange => [_idealHeightFrom, _idealHeightTo];
 
   get idealAgeDataRange => [_idealAgeFrom, _idealAgeTo];
-// todo::여기에서 IdealSelect의 메소드를 불러와서 승부를 봐야한다
 
-//1.3.2
 }
 
 /*
@@ -79,6 +88,7 @@ class IdealData {
 
   1. type Map<String,Map<String,num>>  -> 이름으로 찾을 수 있도록 하는 것이 프로잭트가 커졌을 때 편할 것이다.
   3. 예시 작성 시작
+  //todo:: 만약 여성의 정보가 부족해서 null일때의 상황을 고려해야한다.
   var womenList =
     {
       "가나다": {
@@ -130,52 +140,86 @@ mixin WomenData {
   get womenDataValueList => _womenList.values.toList();
 }
 
-//4. class IdealSelect
+//4. class IdealSelector
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
-class IdealSelect extends IdealData
+class IdealSelector extends IdealData
     with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
   //super class IdealData에서 메소드와 컨스트럭터 상속
-  IdealSelect.getIdealFigure(super.idealFigure) : super.getIdealFigure();
+  IdealSelector.getIdealFigure(super.idealFigure) : super.getIdealFigure();
 
   //4.1 get womenList
   //4.2 method
 
   //4.2.1 test code
-  testIdealSelect() {
+  testIdealSelector() {
     print(womenData.toString());
     print(womenDataKeyList.toString());
     print(womenDataValueList.toString());
   }
+  testDataRangeGet(){
+    print(idealHeadSizeDataRange.toString());
+    print(idealHeightDataRange.toString());
+    print(idealAgeDataRange.toString());
+  }
 
 /*
-*  todo::
 *  여기에서 womenList 를 탐색하게 될텐데 한번에 하나의 데이터 조각 (예:: womenList["가나다"]) 을 비교하게 되고
 *  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
 */
   //4.2.2 idealChecker
-  idealChecker() {
+  void idealChecker() {
     // 사용할 다른 클레스의 method 목록 ::
     // womenDataKeyList,
     // 모든 여성의 이름 목록 List <String>
     // womenDataValueList
     // 모든 여성의 세부사항(머리크기,키,나이) 목록 List<Map<String, num>>
-    // headSizeCompare,
-    // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
-    // heightCompare,
-    // 한명의 여성의 키와 이상형(키) 비교하는 기능
-    // ageCompare,
-    // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
     // idealHeadSizeDataRange,
     // 사용자의 희망 머리 크기 받아오는 getter output:List<num>
     // idealHeightDataRange
     // 사용자의 희망 키 받아오는 getter output:List<num>
     //idealAgeDataRange
     // 사용자의 희망 나이 받아오는 getter output:List<num>
-    //input:
-    //output:
-    idealHeadSizeDataRange();
-    idealHeightDataRange();
-    idealAgeDataRange();
+    // headSizeCompare,
+    // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
+    // heightCompare,
+    // 한명의 여성의 키와 이상형(키) 비교하는 기능
+    // ageCompare,
+    // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
+
+    //4.2.2.1 조건을 만족하는 여성의 이름을 저장할 List<String> idealMatchedWomenList
+    List<String> idealMatchedWomenList=[];
+
+    //4.2.2.2 여성의 목록이 존재할때 조건을 각각 비교하는 for문
+    //todo::Uncaught Error: TypeError: Instance of 'JSArray<dynamic>': type 'JSArray<dynamic>' is not a subtype of type 'List<num>’
+    //headSizeCompare에 num 과 list 를 넣으면 오류가 나고 num,num,num을 넣으면 오류가 안난다. 왜 그런지 확인해야함.
+    for(int i=0; i<womenDataKeyList.length;i++){
+      // 머리 크기 비교
+      if(headSizeCompare(womenDataValueList[i]["headSize"],  idealHeadSizeDataRange[0],idealHeadSizeDataRange[1])==false){
+        //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
+        continue;
+      }
+      //키 비교
+      if(heightCompare(womenDataValueList[i]["height"],  idealHeightDataRange[0],idealHeightDataRange[1])==false){
+        //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
+        continue;
+      }
+      //나이 비교
+      if(ageCompare(womenDataValueList[i]["age"],  idealAgeDataRange[0],idealAgeDataRange[1])==false){
+        //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
+        continue;
+      }
+      //머리크기 비교 &&키 비교 && 나이 비교 를 모두 만족하면 idealMatchedWomenList에 이름(womenDataKeyList[i])를 추가한다
+      idealMatchedWomenList.add(womenDataKeyList[i]);
+    }
+    // 4.2.2.3 idealMatchedWomenList의 크기가 존재할때(조건을 만족하는 여성이 있을때)
+    if(idealMatchedWomenList.isNotEmpty) {
+      //결과값을 프린트한다.
+      idealMatchedWomenList.map((x)=>print(x)).toList();
+    }
+    //4.2.2.4 idealMatchedWomenList의 크기가 존재하지 않을때(여성의 데이터가 처음부터 없었거나, 조건을 만족하는 여성이 없을때)
+    else {
+      print("no data or no women matched :: try other figure!");
+    }
   }
 }
 
@@ -183,11 +227,11 @@ class IdealSelect extends IdealData
 mixin HeadSizeChecker {
   //5.1 method
   //5.1.1 headSizeCompare
-  //input: 여성(num womanFigureHeadSize), 사용자 희망 시작(List<num> idealHeadSize :: [idealHeadSizeFrom,idealHeadSizeTo])
+  //input: 여성(num womanFigureHeadSize), 사용자 희망 시작 끝(idealHeadSizeFrom,idealHeadSizeTo)
   //output: 해당하는지 아닌지 (true/false)
-  headSizeCompare(num womanFigureHeadSize, List<num> idealHeadSize) =>
-      womanFigureHeadSize >= idealHeadSize[0] &&
-              womanFigureHeadSize <= idealHeadSize[1]
+  bool headSizeCompare (num womanFigureHeadSize, num idealHeadSizeFrom,num idealHeadSizeTo) =>
+      womanFigureHeadSize >= idealHeadSizeFrom &&
+              womanFigureHeadSize <= idealHeadSizeTo
           ? true
           : false;
 }
@@ -195,10 +239,10 @@ mixin HeadSizeChecker {
 mixin HeightChecker {
   //6.1 method
   //6.1.1 heightCompare
-  //input: 여성(womanFigureHeight), 사용자 희망 시작 (List<num> idealHeight [idealHeightFrom,idealHeightSizeTo])
+  //input: 여성(womanFigureHeight), 사용자 희망 시작 끝(idealHeightFrom,idealHeightTo)
   //output: 해당하는지 아닌지 (true/false)
-  heightCompare(num womanFigureHeight, List<num> idealHeight) =>
-      womanFigureHeight >= idealHeight[0] && womanFigureHeight <= idealHeight[1]
+  heightCompare(num womanFigureHeight,num idealHeightFrom,num idealHeightTo) =>
+      womanFigureHeight >= idealHeightFrom && womanFigureHeight <= idealHeightTo
           ? true
           : false;
 }
@@ -206,10 +250,10 @@ mixin HeightChecker {
 mixin AgeChecker {
   //6.2 method
   //6.2.1 ageCompare
-  //input: 여성(womanFigureAge), 사용자 희망 시작(List<num> idealAge [idealAgeFrom,idealAgeTo])
+  //input: 여성(womanFigureAge), 사용자 희망 시작 끝(idealAgeFrom,idealAgeTo)
   //output: 해당하는지 아닌지 (true/false)
-  ageCompare(num womanFigureAge, List<num> idealAge) =>
-      womanFigureAge >= idealAge[0] && womanFigureAge <= idealAge[0]
+  ageCompare(num womanFigureAge, num idealAgeFrom, num idealAgeTo) =>
+      womanFigureAge >= idealAgeFrom && womanFigureAge <= idealAgeTo
           ? true
           : false;
 }
