@@ -19,7 +19,6 @@ void main() {
   test.testFigureInput();
 }
 
-
 // 1. class SelectIdeal (will extends abstract class IdealWomen )
 class SelectIdeal {
   // 1.1 field
@@ -27,9 +26,11 @@ class SelectIdeal {
   // 1.1.1 idealHeadSize get this field from constructor
   var idealHeadSize_from;
   var idealHeadSize_to;
+
   // 1.1.1 idealHeightCheker get this field from constructor
   var idealHeight_from;
   var idealHeight_to;
+
   // 1.1.1 idealAge get this field from constructor
   var idealAge_from;
   var idealAge_to;
@@ -54,12 +55,46 @@ class SelectIdeal {
   }
 
 // 1.3 method
-// 1.3.1 headSizeChecker -> todo::2 allan 의 선택과 비교를 어떻게 할것인가?
+// 1.3.1 headSizeChecker -> todo::2 allan 의 선택과 비교를 어떻게 할것인가?-> 더미데이터부터 먼저 완성 필요(특정할수가없다)
 // 1.3.2 heightChecker ->
 // 1.3.3 ageChecker ->
 }
 
-// 2. class IdealWomen todo::1 더미데이터의 완성
+//todo::더미데이터의 완성
+/*
+ 목적 더미데이터의 완성
+ 1. 어떤 형식의 데이터를 받을것인가 이상형 넣는 형식과 같은 Map<String num> 이 좋을듯.
+ 2. 1번의 데이터를 List 로 받자 최종 형태는 List<Map<String, num>>이 될것이다.
+ 3. 예시 작성 시작
+    {
+      "womenList": [
+        {
+          "name": "가나다",
+          "headSize": 50,
+          "height": 170,
+          "age": 30
+        },
+        {
+          "name": "라마사",
+          "headSize": 40,
+          "height": 180,
+          "age": 20
+        },
+        {
+          "name": "파차하",
+          "headSize": 60,
+          "height": 160,
+          "age": 40
+        }
+      ]
+    }
+  4. import 'package:ideal_women_selection/dummyWomenList.json' as json_map_list
+  5. dart pad 가 import 'dart:io';를 지원하지 않으므로 import 형식은 나중으로 미루자. todo:: 완성뒤에 json file import test
+  6. 변수에 미리 넣어주자.
+
+*/
+
+// 2. class IdealWomen
 // 2.1 field
 // 2.1.1 List<Map<String num>> womenList
 
