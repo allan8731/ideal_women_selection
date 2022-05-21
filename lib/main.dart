@@ -134,7 +134,7 @@ mixin WomenData {
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
 class IdealSelect extends IdealData
     with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
-  //IdealData에서 메소드와 컨스트럭터 상속
+  //super class IdealData에서 메소드와 컨스트럭터 상속
   IdealSelect.getIdealFigure(super.idealFigure) : super.getIdealFigure();
 
   //4.1 get womenList
@@ -153,21 +153,28 @@ class IdealSelect extends IdealData
 *  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
 */
   //4.2.2 idealChecker
-  // 사용할 다른 클레스의 method 목록 ::
-  // IdealSelect().dataKeyList,
-  // 모든 여성의 이름 목록 List <String>
-  // IdealSelect().dataValueList
-  // 모든 여성의 세부사항(머리크기,키,나이) 목록 List<Map<String, num>>
-  // headSizeCompare,
-  // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
-  // heightCompare,
-  // 한명의 여성의 키와 이상형(키) 비교하는 기능
-  // ageCompare,
-  // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
-  //
-  //input:
-  //output:
   idealChecker() {
+    // 사용할 다른 클레스의 method 목록 ::
+    // womenDataKeyList,
+    // 모든 여성의 이름 목록 List <String>
+    // womenDataValueList
+    // 모든 여성의 세부사항(머리크기,키,나이) 목록 List<Map<String, num>>
+    // headSizeCompare,
+    // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
+    // heightCompare,
+    // 한명의 여성의 키와 이상형(키) 비교하는 기능
+    // ageCompare,
+    // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
+    // idealHeadSizeDataRange,
+    // 사용자의 희망 머리 크기 받아오는 getter output:List<num>
+    // idealHeightDataRange
+    // 사용자의 희망 키 받아오는 getter output:List<num>
+    //idealAgeDataRange
+    // 사용자의 희망 나이 받아오는 getter output:List<num>
+    //input:
+    //output:
+    idealHeadSizeDataRange();
+    idealHeightDataRange();
     idealAgeDataRange();
   }
 }
