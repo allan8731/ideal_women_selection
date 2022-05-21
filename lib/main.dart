@@ -64,9 +64,11 @@ class IdealData {
 
 // 1.3 method
 // 1.3.1 getter
-  get idealHeadSizeDataRange=>[_idealHeadSizeFrom,_idealHeadSizeTo];
-  get idealHeightDataRange=>[_idealHeightFrom,_idealHeightTo];
-  get idealAgeDataRange=>[_idealAgeFrom,_idealAgeTo];
+  get idealHeadSizeDataRange => [_idealHeadSizeFrom, _idealHeadSizeTo];
+
+  get idealHeightDataRange => [_idealHeightFrom, _idealHeightTo];
+
+  get idealAgeDataRange => [_idealAgeFrom, _idealAgeTo];
 // todo::여기에서 IdealSelect의 메소드를 불러와서 승부를 봐야한다
 
 //1.3.2
@@ -130,10 +132,10 @@ mixin WomenData {
 
 //4. class IdealSelect
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
-class IdealSelect extends IdealData with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
+class IdealSelect extends IdealData
+    with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
   //IdealData에서 메소드와 컨스트럭터 상속
   IdealSelect.getIdealFigure(super.idealFigure) : super.getIdealFigure();
-
 
   //4.1 get womenList
   //4.2 method
@@ -166,7 +168,7 @@ class IdealSelect extends IdealData with HeadSizeChecker, HeightChecker, AgeChec
   //input:
   //output:
   idealChecker() {
-
+    idealAgeDataRange();
   }
 }
 
@@ -174,12 +176,11 @@ class IdealSelect extends IdealData with HeadSizeChecker, HeightChecker, AgeChec
 mixin HeadSizeChecker {
   //5.1 method
   //5.1.1 headSizeCompare
-  //input: 여성(womanFigureHeadSize), 사용자 희망 시작(idealHeadSizeFrom), 끝(idealHeadSizeTo);
+  //input: 여성(num womanFigureHeadSize), 사용자 희망 시작(List<num> idealHeadSize :: [idealHeadSizeFrom,idealHeadSizeTo])
   //output: 해당하는지 아닌지 (true/false)
-  headSizeCompare(num womanFigureHeadSize, num idealHeadSizeFrom,
-          num idealHeadSizeTo) =>
-      womanFigureHeadSize >= idealHeadSizeFrom &&
-              womanFigureHeadSize <= idealHeadSizeTo
+  headSizeCompare(num womanFigureHeadSize, List<num> idealHeadSize) =>
+      womanFigureHeadSize >= idealHeadSize[0] &&
+              womanFigureHeadSize <= idealHeadSize[1]
           ? true
           : false;
 }
@@ -187,12 +188,10 @@ mixin HeadSizeChecker {
 mixin HeightChecker {
   //6.1 method
   //6.1.1 heightCompare
-  //input: 여성(womanFigureHeight), 사용자 희망 시작(idealHeightFrom), 끝(idealHeightSizeTo);
+  //input: 여성(womanFigureHeight), 사용자 희망 시작 (List<num> idealHeight [idealHeightFrom,idealHeightSizeTo])
   //output: 해당하는지 아닌지 (true/false)
-  heightCompare(
-          num womanFigureHeight, num idealHeightFrom, num idealHeightSizeTo) =>
-      womanFigureHeight >= idealHeightFrom &&
-              womanFigureHeight <= idealHeightSizeTo
+  heightCompare(num womanFigureHeight, List<num> idealHeight) =>
+      womanFigureHeight >= idealHeight[0] && womanFigureHeight <= idealHeight[1]
           ? true
           : false;
 }
@@ -200,10 +199,10 @@ mixin HeightChecker {
 mixin AgeChecker {
   //6.2 method
   //6.2.1 ageCompare
-  //input: 여성(womanFigureAge), 사용자 희망 시작(idealAgeFrom), 끝(idealAgeTo);
+  //input: 여성(womanFigureAge), 사용자 희망 시작(List<num> idealAge [idealAgeFrom,idealAgeTo])
   //output: 해당하는지 아닌지 (true/false)
-  ageCompare(num womanFigureAge, num idealAgeFrom, num idealAgeTo) =>
-      womanFigureAge >= idealAgeFrom && womanFigureAge <= idealAgeTo
+  ageCompare(num womanFigureAge, List<num> idealAge) =>
+      womanFigureAge >= idealAge[0] && womanFigureAge <= idealAge[0]
           ? true
           : false;
 }
