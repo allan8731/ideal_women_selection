@@ -28,7 +28,7 @@ void main() {
 }
 
 // 1. class SelectIdeal (will extends abstract class IdealWomen )
-class SelectIdeal extends IdealChecker{
+class SelectIdeal extends IdealChecker {
   // 1.1 field
   // 1.1.0 원하는 수치의 범위를 받는다.
   // 1.1.1 idealHeadSize get this field from constructor
@@ -45,13 +45,13 @@ class SelectIdeal extends IdealChecker{
 
   // 1.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
   SelectIdeal.getIdealFigure(Map<String, num> idealFigure)
-  // 1.2.1 이상적인 머리크기의 시작 (idealHeadSize_from), 이상적인 머리크기의 끝 (idealHeadSize_to) 를 받는다
+      // 1.2.1 이상적인 머리크기의 시작 (idealHeadSize_from), 이상적인 머리크기의 끝 (idealHeadSize_to) 를 받는다
       : idealHeadSize_from = idealFigure["원하는머리둘레 시작"],
         idealHeadSize_to = idealFigure["원하는머리둘레 끝"],
-  // 1.2.2 이상적인 키의 시작  (idealHeight_from), 이상적인 키의 끝 (idealHeight_to) 를 받는다
+        // 1.2.2 이상적인 키의 시작  (idealHeight_from), 이상적인 키의 끝 (idealHeight_to) 를 받는다
         idealHeight_from = idealFigure["원하는키 시작"],
         idealHeight_to = idealFigure["원하는키 끝"],
-  // 1.2.3 이상적인 나이의 시작 (idealAge_from), 이상적인 나이의 끝 (idealAge_to) 를 받는다
+        // 1.2.3 이상적인 나이의 시작 (idealAge_from), 이상적인 나이의 끝 (idealAge_to) 를 받는다
         idealAge_from = idealFigure["원하는나이 시작"],
         idealAge_to = idealFigure["원하는나이 끝"];
 
@@ -64,12 +64,11 @@ class SelectIdeal extends IdealChecker{
 
 // 1.3 method
 // todo::여기에서 IdealChecker의 메소드를 불러와서 승부를 봐야한다
-  testIdealChecker(){
+  testIdealChecker() {
     print(IdealChecker().data.toString());
     print(IdealChecker().dataKeyList.toString());
     print(IdealChecker().dataValueList.toString());
   }
-
 }
 
 //todo::더미데이터의 완성
@@ -111,39 +110,27 @@ class SelectIdeal extends IdealChecker{
 mixin WomenData {
 // 2.1 field
 // 2.1.1 Map<Map<String,num>> womenList
-  static final Map<String,Map<String,num>>  _womenList =
-  {
-    "가나다": {
-      "headSize": 50,
-      "height": 170,
-      "age": 30
-    },
-    "라마사": {
-      "headSize": 40,
-      "height": 180,
-      "age": 20
-    },
-    "파차하": {
-      "headSize": 60,
-      "height": 160,
-      "age": 40
-    }
+  static final Map<String, Map<String, num>> _womenList = {
+    "가나다": {"headSize": 50, "height": 170, "age": 30},
+    "라마사": {"headSize": 40, "height": 180, "age": 20},
+    "파차하": {"headSize": 60, "height": 160, "age": 40}
   };
+
   // 2.2 method
   // 2.2.1 getter 지금은 같은 파일이지만 나중에는 달라질것이다 또 womenList는 모든 클레스에서 생긴 인스턴스에서 변하지 않는 값이라 static이다.
   // 2.2.2 모든 데이터 get
   get data => _womenList;
+
   // 2.2.3 데이터의 key 를 List<String> 으로 get
-  get dataKeyList=> _womenList.keys.toList();
+  get dataKeyList => _womenList.keys.toList();
+
   // 2.2.4 데이터의 value 를 List<Mpa<String , num>> 으로 get
-  get dataValueList=>_womenList.values.toList();
-
+  get dataValueList => _womenList.values.toList();
 }
-
 
 //4. class IdealChecker
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
-class IdealChecker with HeadSizeChecker,HeightChecker,AgeChecker,WomenData{
+class IdealChecker with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
   //4.1 get womenList
   //4.2 method
 
@@ -156,14 +143,8 @@ class IdealChecker with HeadSizeChecker,HeightChecker,AgeChecker,WomenData{
 }
 
 //5. mixin HeadSizeChecker
-mixin HeadSizeChecker{
-
-}
+mixin HeadSizeChecker {}
 //6. mixin HeightChecker
-mixin HeightChecker{
-
-}
+mixin HeightChecker {}
 //7. mixin AgeChecker
-mixin AgeChecker{
-
-}
+mixin AgeChecker {}
