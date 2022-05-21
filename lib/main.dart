@@ -37,13 +37,13 @@ class SelectIdeal {
 
   // 1.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
   SelectIdeal.getIdealFigure(Map<String, num> idealFigure)
-      // 1.2.1 이상적인 머리크기의 시작 (idealHeadSize_from), 이상적인 머리크기의 끝 (idealHeadSize_to) 를 받는다
+  // 1.2.1 이상적인 머리크기의 시작 (idealHeadSize_from), 이상적인 머리크기의 끝 (idealHeadSize_to) 를 받는다
       : idealHeadSize_from = idealFigure["원하는머리둘레 시작"],
         idealHeadSize_to = idealFigure["원하는머리둘레 끝"],
-        // 1.2.2 이상적인 키의 시작  (idealHeight_from), 이상적인 키의 끝 (idealHeight_to) 를 받는다
+  // 1.2.2 이상적인 키의 시작  (idealHeight_from), 이상적인 키의 끝 (idealHeight_to) 를 받는다
         idealHeight_from = idealFigure["원하는키 시작"],
         idealHeight_to = idealFigure["원하는키 끝"],
-        // 1.2.3 이상적인 나이의 시작 (idealAge_from), 이상적인 나이의 끝 (idealAge_to) 를 받는다
+  // 1.2.3 이상적인 나이의 시작 (idealAge_from), 이상적인 나이의 끝 (idealAge_to) 를 받는다
         idealAge_from = idealFigure["원하는나이 시작"],
         idealAge_to = idealFigure["원하는나이 끝"];
 
@@ -95,7 +95,27 @@ class SelectIdeal {
 */
 
 // 2. class IdealWomen
+class IdealWomen {
 // 2.1 field
+  final womenList =
+  {
+    "가나다": {
+      "headSize": 50,
+      "height": 170,
+      "age": 30
+    },
+    "라마사": {
+      "headSize": 40,
+      "height": 180,
+      "age": 20
+    },
+    "파차하": {
+      "headSize": 60,
+      "height": 160,
+      "age": 40
+    }
+  };
+
 // 2.1.1 List<Map<String num>> womenList
 
 // 3. class SerializeWomenJsonData
@@ -106,6 +126,7 @@ class SelectIdeal {
 // 3.1.4 headSize
 // 3.2 method
 // 3.2.1 {"name":String "심주연" , "age":int 34 , "headSize": double 50 , "height": double 170}
+}
 
 //4. class IdealChecker
 
