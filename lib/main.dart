@@ -2,7 +2,7 @@
 // 소개팅을 회사에서 알란(이름)에게 어떤 이상형을 원하는지 묻습니다.
 // 이상형란에는 머리 길이, 키, 나이를 넣으면 당신의 이상형 이름이 나옵니다.
 void main() {
-  var idealFigure = {
+  Map<String, num> idealFigure = {
     "원하는키 시작": 160,
     "원하는키 끝": 170,
     "원하는머리둘레 시작": 40,
@@ -11,7 +11,7 @@ void main() {
     "원하는나이 끝": 40
   };
   //input Map<String, num> idealFigure
-  var test = SelectIdeal.getIdealFigure(idealFigure);
+  var test = IdealSelect.getIdealFigure(idealFigure);
   //idealFigure Test Part
   test.testFigureInput();
   //testFigure output:
@@ -19,51 +19,52 @@ void main() {
   //원하는 키는 160 cm ~ 170 cm
   //원하는 나이는 20 살 ~ 40 살
 
-  //class IdealChecker method Test Part
-  test.testIdealChecker();
-  //testIdealChecker output:
+  //class IdealSelect method Test Part
+  test.testIdealSelect();
+  //testIdealSelect output:
   // {가나다: {headSize: 50, height: 170, age: 30}, 라마사: {headSize: 40, height: 180, age: 20}, 파차하: {headSize: 60, height: 160, age: 40}}
   // [가나다, 라마사, 파차하]
   // [{headSize: 50, height: 170, age: 30}, {headSize: 40, height: 180, age: 20}, {headSize: 60, height: 160, age: 40}]
 }
 
-// 1. class SelectIdeal
-class SelectIdeal extends IdealChecker {
+// 1. class IdealData
+class IdealData {
   // 1.1 field
   // 1.1.0 원하는 수치의 범위를 받는다.
   // 1.1.1 idealHeadSize get this field from constructor
-  var idealHeadSizeFrom;
-  var idealHeadSizeTo;
+  final num? _idealHeadSizeFrom;
+  final num? _idealHeadSizeTo;
 
   // 1.1.1 idealHeightCheker get this field from constructor
-  var idealHeightFrom;
-  var idealHeightTo;
+  final num? _idealHeightFrom;
+  final num? _idealHeightTo;
 
   // 1.1.1 idealAge get this field from constructor
-  var idealAgeFrom;
-  var idealAgeTo;
+  final num? _idealAgeFrom;
+  final num? _idealAgeTo;
 
   // 1.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
-  SelectIdeal.getIdealFigure(Map<String, num> idealFigure)
+  IdealData.getIdealFigure(Map<String, num> idealFigure)
       // 1.2.1 이상적인 머리크기의 시작 (idealHeadSizeFrom), 이상적인 머리크기의 끝 (idealHeadSizeTo) 를 받는다
-      : idealHeadSizeFrom = idealFigure["원하는머리둘레 시작"],
-        idealHeadSizeTo = idealFigure["원하는머리둘레 끝"],
-        // 1.2.2 이상적인 키의 시작  (idealHeightFrom), 이상적인 키의 끝 (idealHeightTo) 를 받는다
-        idealHeightFrom = idealFigure["원하는키 시작"],
-        idealHeightTo = idealFigure["원하는키 끝"],
-        // 1.2.3 이상적인 나이의 시작 (idealAgeFrom), 이상적인 나이의 끝 (idealAgeTo) 를 받는다
-        idealAgeFrom = idealFigure["원하는나이 시작"],
-        idealAgeTo = idealFigure["원하는나이 끝"];
+      : _idealHeadSizeFrom = idealFigure["원하는머리둘레 시작"],
+        _idealHeadSizeTo = idealFigure["원하는머리둘레 끝"],
+        // 1.2.2 이상적인 키의 시작  (_idealHeightFrom), 이상적인 키의 끝 (_idealHeightTo) 를 받는다
+        _idealHeightFrom = idealFigure["원하는키 시작"],
+        _idealHeightTo = idealFigure["원하는키 끝"],
+        // 1.2.3 이상적인 나이의 시작 (_idealAgeFrom), 이상적인 나이의 끝 (_idealAgeTo) 를 받는다
+        _idealAgeFrom = idealFigure["원하는나이 시작"],
+        _idealAgeTo = idealFigure["원하는나이 끝"];
 
+  // get IdealData
   // 1.2.4 test code
   testFigureInput() {
-    print("원하는 머리둘레는 $idealHeadSizeFrom cm ~ $idealHeadSizeTo cm");
-    print("원하는 키는 $idealHeightFrom cm ~ $idealHeightTo cm");
-    print("원하는 나이는 $idealAgeFrom 살 ~ $idealAgeTo 살");
+    print("원하는 머리둘레는 $_idealHeadSizeFrom cm ~ $_idealHeadSizeTo cm");
+    print("원하는 키는 $_idealHeightFrom cm ~ $_idealHeightTo cm");
+    print("원하는 나이는 $_idealAgeFrom 살 ~ $_idealAgeTo 살");
   }
 
 // 1.3 method
-// todo::여기에서 IdealChecker의 메소드를 불러와서 승부를 봐야한다
+// todo::여기에서 IdealSelect의 메소드를 불러와서 승부를 봐야한다
 
 //1.3.2
 }
@@ -124,17 +125,21 @@ mixin WomenData {
   get dataValueList => _womenList.values.toList();
 }
 
-//4. class IdealChecker
+//4. class IdealSelect
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
-class IdealChecker with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
+class IdealSelect extends IdealData with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
+  //IdealData에서 메소드와 컨스트럭터 상속
+  IdealSelect.getIdealFigure(super.idealFigure) : super.getIdealFigure();
+
+
   //4.1 get womenList
   //4.2 method
 
   //4.2.1 test code
-  testIdealChecker() {
-    print(IdealChecker().data.toString());
-    print(IdealChecker().dataKeyList.toString());
-    print(IdealChecker().dataValueList.toString());
+  testIdealSelect() {
+    print(data.toString());
+    print(dataKeyList.toString());
+    print(dataValueList.toString());
   }
 
 /*
@@ -143,10 +148,23 @@ class IdealChecker with HeadSizeChecker, HeightChecker, AgeChecker, WomenData {
 *  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
 */
   //4.2.2 idealChecker
+  // 사용할 다른 클레스의 method 목록 ::
+  // IdealSelect().dataKeyList,
+  // 모든 여성의 이름 목록 List <String>
+  // IdealSelect().dataValueList
+  // 모든 여성의 세부사항(머리크기,키,나이) 목록 List<Map<String, num>>
+  // headSizeCompare,
+  // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
+  // heightCompare,
+  // 한명의 여성의 키와 이상형(키) 비교하는 기능
+  // ageCompare,
+  // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
+  //
   //input:
   //output:
+  idealChecker() {
 
-  idealChecker() {}
+  }
 }
 
 //5. mixin HeadSizeChecker
