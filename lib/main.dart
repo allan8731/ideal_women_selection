@@ -12,11 +12,19 @@ void main() {
   };
   //input Map<String, num> idealFigure
   var test = SelectIdeal.getIdealFigure(idealFigure);
+  //idealFigure Test Part
+  test.testFigureInput();
   //testFigure output:
   //원하는 머리둘레는 40 cm ~ 50 cm
   //원하는 키는 160 cm ~ 170 cm
   //원하는 나이는 20 살 ~ 40 살
-  test.testFigureInput();
+
+  //class IdealChecker method Test Part
+  test.testIdealChecker();
+  //testIdealChecker output:
+  // {가나다: {headSize: 50, height: 170, age: 30}, 라마사: {headSize: 40, height: 180, age: 20}, 파차하: {headSize: 60, height: 160, age: 40}}
+  // [가나다, 라마사, 파차하]
+  // [{headSize: 50, height: 170, age: 30}, {headSize: 40, height: 180, age: 20}, {headSize: 60, height: 160, age: 40}]
 }
 
 // 1. class SelectIdeal (will extends abstract class IdealWomen )
@@ -55,7 +63,12 @@ class SelectIdeal extends IdealChecker{
   }
 
 // 1.3 method
-// todo::여기에서 IdealWomen의 메소드를 불러와서 승부를 봐야한다
+// todo::여기에서 IdealChecker의 메소드를 불러와서 승부를 봐야한다
+  testIdealChecker(){
+    print(IdealChecker().data.toString());
+    print(IdealChecker().dataKeyList.toString());
+    print(IdealChecker().dataValueList.toString());
+  }
 
 }
 
@@ -95,10 +108,10 @@ class SelectIdeal extends IdealChecker{
 */
 
 // 2. class WomenData
-class WomenData {
+mixin WomenData {
 // 2.1 field
 // 2.1.1 Map<Map<String,num>> womenList
-  final Map<String,Map<String,num>>  _womenList =
+  static final Map<String,Map<String,num>>  _womenList =
   {
     "가나다": {
       "headSize": 50,
@@ -117,22 +130,20 @@ class WomenData {
     }
   };
   // 2.2 method
-  // 2.2.1 getter 지금은 같은 파일이지만 나중에는 달라질것이다 또 womenList는 모든 클레스 인스턴스에서 변하지 않는 값이라 static이다.
-
-  // var a= womenList.values.toList();
-  // var b= womenList.keys.toList();
-  // print(a[0]);
-  // print(b[0]);
-  
-
-
-
+  // 2.2.1 getter 지금은 같은 파일이지만 나중에는 달라질것이다 또 womenList는 모든 클레스에서 생긴 인스턴스에서 변하지 않는 값이라 static이다.
+  // 2.2.2 모든 데이터 get
+  get data => _womenList;
+  // 2.2.3 데이터의 key 를 List<String> 으로 get
+  get dataKeyList=> _womenList.keys.toList();
+  // 2.2.4 데이터의 value 를 List<Mpa<String , num>> 으로 get
+  get dataValueList=>_womenList.values.toList();
 
 }
 
 
 //4. class IdealChecker
-class IdealChecker extends WomenData with HeadSizeChecker,HeightChecker,AgeChecker{
+// mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
+class IdealChecker with HeadSizeChecker,HeightChecker,AgeChecker,WomenData{
   //4.1 get womenList
   //4.2 method
 
