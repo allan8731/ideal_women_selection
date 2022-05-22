@@ -10,43 +10,43 @@ void main() {
     "원하는나이 시작": 20,
     "원하는나이 끝": 40
   };
-  //input Map<String, num> idealFigure
+  // input Map<String, num> idealFigure
   var test = IdealSelector.getIdealFigure(idealFigure);
-  //idealFigure Test Part
+  // idealFigure Test Part
   // test.testFigureInput();
-  //testFigure output::
-  //원하는 머리둘레는 40 cm ~ 50 cm
-  //원하는 키는 160 cm ~ 170 cm
-  //원하는 나이는 20 살 ~ 40 살
+  // testFigure output::
+  // 원하는 머리둘레는 40 cm ~ 50 cm
+  // 원하는 키는 160 cm ~ 170 cm
+  // 원하는 나이는 20 살 ~ 40 살
 
-  //class IdealSelector method Test Part
+  // class IdealSelector method Test Part
   test.testIdealSelector();
-  //testIdealSelector output::
+  // testIdealSelector output::
   // {가나다: {headSize: 50, height: 170, age: 30}, 라마사: {headSize: 40, height: 180, age: 20}, 파차하: {headSize: 60, height: 160, age: 40}}
   // [가나다, 라마사, 파차하]
   // [{headSize: 50, height: 170, age: 30}, {headSize: 40, height: 180, age: 20}, {headSize: 60, height: 160, age: 40}]
 
   test.testDataRangeGet();
-  //testDataRangeGet output::
+  // testDataRangeGet output::
   // [40, 50]
   // [160, 170]
   // [20, 40]
 
   test.idealChecker();
-  //output:: 가나다
+  // output:: 가나다
 }
 
-//1. class IdealSelector
+// 1. class IdealSelector
 // mixin은 가장 오른쪽에 부른것을 가장 먼저 가져온다. 데이터를 먼저가져오는 것이 이치에 맞다.
 class IdealSelector extends IdealData
     with HeadSizeChecker, HeightChecker, AgeChecker {
-  //super class IdealData에서 메소드와 컨스트럭터 상속
+  // super class IdealData에서 메소드와 컨스트럭터 상속
   IdealSelector.getIdealFigure(super.idealFigure) : super.getIdealFigure();
 
-  //1.1 get womenList
-  //1.2 method
+  // 1.1 get womenList
+  // 1.2 method
 
-  //1.2.1 test code
+  // 1.2.1 test code
   testIdealSelector() {
     print(womenData.toString());
     print(womenDataKeyList.toString());
@@ -63,7 +63,7 @@ class IdealSelector extends IdealData
 *  여기에서 womenList 를 탐색하게 될텐데 한번에 하나의 데이터 조각 (예:: womenList["가나다"]) 을 비교하게 되고
 *  참/거짓에 따라서 따로 저장해주는 부분이 필요하다.
 */
-  //1.2.2 idealChecker
+  // 1.2.2 idealChecker
   void idealChecker() {
     // 사용할 다른 클레스의 method 목록 ::
     // womenDataKeyList,
@@ -74,7 +74,7 @@ class IdealSelector extends IdealData
     // 사용자의 희망 머리 크기 받아오는 getter output:List<num>
     // idealHeightDataRange
     // 사용자의 희망 키 받아오는 getter output:List<num>
-    //idealAgeDataRange
+    // idealAgeDataRange
     // 사용자의 희망 나이 받아오는 getter output:List<num>
     // headSizeCompare,
     // 한명의 여성의 머리크기와 이상형(머리크기) 비교하는 기능
@@ -83,45 +83,49 @@ class IdealSelector extends IdealData
     // ageCompare,
     // 한명의 여성의 나이와 이상형(나이) 비교하는 기능.
 
-    //1.2.2.1 조건을 만족하는 여성의 이름을 저장할 List<String> idealMatchedWomenList
+    // 1.2.2.1 조건을 만족하는 여성의 이름을 저장할 List<String> idealMatchedWomenList
     List<String> idealMatchedWomenList = [];
 
-    //1.2.2.2 여성의 목록이 존재할때 조건을 각각 비교하는 for문
-    //todo::Uncaught Error: TypeError: Instance of 'JSArray<dynamic>': type 'JSArray<dynamic>' is not a subtype of type 'List<num>’
-    //headSizeCompare에 num 과 list 를 넣으면 오류가 나고 num,num,num을 넣으면 오류가 안난다. 왜 그런지 확인해야함.
-    for (int i = 0; i < womenDataKeyList.length; i++) {
+    // 1.2.2.2 여성의 목록이 존재할때 조건을 각각 비교하는 for문
+    // todo::Uncaught Error: TypeError: Instance of 'JSArray<dynamic>': type 'JSArray<dynamic>' is not a subtype of type 'List<num>’
+    // headSizeCompare에 num 과 list 를 넣으면 오류가 나고 num,num,num을 넣으면 오류가 안난다. 왜 그런지 확인해야함.
+    for(final womanData in womenData.entries){
+      // womanData
+      // MapEntry(가나다: {headSize: 50, height: 170, age: 30})
+      // MapEntry(라마사: {headSize: 40, height: 180, age: 20})
+      // MapEntry(파차하: {headSize: 60, height: 160, age: 40})
       // 머리 크기 비교
-      if (headSizeCompare(womenDataValueList[i]["headSize"],
+      if (headSizeCompare(womanData.value["headSize"],
           idealHeadSizeDataRange[0], idealHeadSizeDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
       }
-      //키 비교
-      if (heightCompare(womenDataValueList[i]["height"],
+      // 키 비교
+      if (heightCompare(womanData.value["height"],
           idealHeightDataRange[0], idealHeightDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
       }
-      //나이 비교
-      if (ageCompare(womenDataValueList[i]["age"], idealAgeDataRange[0],
+      // 나이 비교
+      if (ageCompare(womanData.value["age"], idealAgeDataRange[0],
           idealAgeDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
       }
       //머리크기 비교 &&키 비교 && 나이 비교 를 모두 만족하면 idealMatchedWomenList에 이름(womenDataKeyList[i])를 추가한다
-      idealMatchedWomenList.add(womenDataKeyList[i]);
+      idealMatchedWomenList.add(womanData.key);
     }
     // 1.2.2.3 idealMatchedWomenList의 크기가 존재할때(조건을 만족하는 여성이 있을때)
     if (idealMatchedWomenList.isNotEmpty) {
       //결과값을 프린트한다.
       idealMatchedWomenList.map((x) => print(x)).toList();
     }
-    //1.2.2.4 idealMatchedWomenList의 크기가 존재하지 않을때(여성의 데이터가 처음부터 없었거나, 조건을 만족하는 여성이 없을때)
+    // 1.2.2.4 idealMatchedWomenList의 크기가 존재하지 않을때(여성의 데이터가 처음부터 없었거나, 조건을 만족하는 여성이 없을때)
     else {
-      print("no data or no women matched :: try other figure!");
+      print("no data or no women matched :: try to change ideal figures!");
     }
   }
 }
@@ -129,8 +133,8 @@ class IdealSelector extends IdealData
 // 2. class IdealData
 class IdealData extends WomenData{
   // 2.1 field
-  // 2.1.0 원하는 수치의 범위를 받는다.
-  // 2.1.1 getIdealFigure get those fields from constructor
+  // 원하는 이상적 수치의 범위를 받는다.
+  // 2.1.1 getIdealFigure get those fields from constructor(named)
   // 2.1.2 _idealHeadSizeFrom(이상적인 머리크기의 시작)
   final num? _idealHeadSizeFrom;
   // 2.1.3 _idealHeadSizeTo(이상적인 머리크기의 끝)
@@ -144,7 +148,7 @@ class IdealData extends WomenData{
   // 2.1.7 _idealAgeTo(이상적인 나이의 끝)
   final num? _idealAgeTo;
 
-  // 2.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
+  // 2.2 constructor(Named Constructor)-> 사용자가 범위를 넣을 때 사용자에게 한글로 추가적인 정보를 전달하고 싶어서 사용한다.
   IdealData.getIdealFigure(Map<String, num> idealFigure)
       // 2.2.1 이상적인 머리크기의 시작 (idealHeadSizeFrom),
       : _idealHeadSizeFrom = idealFigure["원하는머리둘레 시작"],
@@ -233,7 +237,6 @@ class WomenData {
   get womenDataValueList => _womenList.values.toList(growable: false);
 }
 
-
 // 4. mixin HeadSizeChecker
 mixin HeadSizeChecker {
   // 4.1 method
@@ -247,6 +250,7 @@ mixin HeadSizeChecker {
           ? true
           : false;
 }
+
 // 5. mixin HeightChecker
 mixin HeightChecker {
   // 5.1 method
@@ -259,6 +263,7 @@ mixin HeightChecker {
           ? true
           : false;
 }
+
 // 6. mixin AgeChecker
 mixin AgeChecker {
   // 6.2 method
