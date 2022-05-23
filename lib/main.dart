@@ -2,7 +2,7 @@
 // 소개팅을 회사에서 알란(이름)에게 어떤 이상형을 원하는지 묻습니다.
 // 이상형란에는 머리 길이, 키, 나이를 넣으면 당신의 이상형 이름이 나옵니다.
 void main() {
-  Map<String, num> idealFigure = {
+  final Map<String, num> idealFigure = {
     "원하는키 시작": 160,
     "원하는키 끝": 170,
     "원하는머리둘레 시작": 40,
@@ -11,7 +11,8 @@ void main() {
     "원하는나이 끝": 40
   };
   // input Map<String, num> idealFigure
-  var test = IdealSelector.getIdealFigure(idealFigure);
+  // output IdealSelector instance
+  IdealSelector test = IdealSelector.getIdealFigure(idealFigure);
   // idealFigure Test Part
   // test.testFigureInput();
   // testFigure output::
@@ -121,7 +122,7 @@ class IdealSelector extends IdealData
     // 1.2.2.3 idealMatchedWomenList의 크기가 존재할때(조건을 만족하는 여성이 있을때)
     if (idealMatchedWomenList.isNotEmpty) {
       //결과값을 프린트한다.
-      idealMatchedWomenList.map((x) => print(x)).toList();
+      for (var x in idealMatchedWomenList) {print(x);}
     }
     // 1.2.2.4 idealMatchedWomenList의 크기가 존재하지 않을때(여성의 데이터가 처음부터 없었거나, 조건을 만족하는 여성이 없을때)
     else {
