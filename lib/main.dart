@@ -90,28 +90,28 @@ class IdealSelector extends IdealData
     // 1.2.2.2 여성의 목록이 존재할때 조건을 각각 비교하는 for문
     // todo::Uncaught Error: TypeError: Instance of 'JSArray<dynamic>': type 'JSArray<dynamic>' is not a subtype of type 'List<num>’
     // headSizeCompare에 num 과 list 를 넣으면 오류가 나고 num,num,num을 넣으면 오류가 안난다. 왜 그런지 확인해야함.
-    for(final womanData in womenData.entries){
+    for (final womanData in womenData.entries) {
       // womanData
       // MapEntry(가나다: {headSize: 50, height: 170, age: 30})
       // MapEntry(라마사: {headSize: 40, height: 180, age: 20})
       // MapEntry(파차하: {headSize: 60, height: 160, age: 40})
       // 머리 크기 비교
       if (headSizeCompare(womanData.value["headSize"],
-          idealHeadSizeDataRange[0], idealHeadSizeDataRange[1]) ==
+              idealHeadSizeDataRange[0], idealHeadSizeDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
       }
       // 키 비교
-      if (heightCompare(womanData.value["height"],
-          idealHeightDataRange[0], idealHeightDataRange[1]) ==
+      if (heightCompare(womanData.value["height"], idealHeightDataRange[0],
+              idealHeightDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
       }
       // 나이 비교
       if (ageCompare(womanData.value["age"], idealAgeDataRange[0],
-          idealAgeDataRange[1]) ==
+              idealAgeDataRange[1]) ==
           false) {
         //만족하지 않으면 다음 문장을 읽을 필요없이 넘어간다.
         continue;
@@ -122,7 +122,9 @@ class IdealSelector extends IdealData
     // 1.2.2.3 idealMatchedWomenList의 크기가 존재할때(조건을 만족하는 여성이 있을때)
     if (idealMatchedWomenList.isNotEmpty) {
       //결과값을 프린트한다.
-      for (var x in idealMatchedWomenList) {print(x);}
+      for (var x in idealMatchedWomenList) {
+        print(x);
+      }
     }
     // 1.2.2.4 idealMatchedWomenList의 크기가 존재하지 않을때(여성의 데이터가 처음부터 없었거나, 조건을 만족하는 여성이 없을때)
     else {
@@ -132,20 +134,25 @@ class IdealSelector extends IdealData
 }
 
 // 2. class IdealData
-class IdealData extends WomenData{
+class IdealData extends WomenData {
   // 2.1 field
   // 원하는 이상적 수치의 범위를 받는다.
   // 2.1.1 getIdealFigure get those fields from constructor(named)
   // 2.1.2 _idealHeadSizeFrom(이상적인 머리크기의 시작)
   final num? _idealHeadSizeFrom;
+
   // 2.1.3 _idealHeadSizeTo(이상적인 머리크기의 끝)
   final num? _idealHeadSizeTo;
+
   // 2.1.4 _idealHeightFrom(이상적인 키의 시작)
   final num? _idealHeightFrom;
+
   // 2.1.5 _idealHeightTo(이상적인 키의 끝)
   final num? _idealHeightTo;
+
   // 2.1.6 _idealAgeFrom(이상적인 나이의 시작)
   final num? _idealAgeFrom;
+
   // 2.1.7 _idealAgeTo(이상적인 나이의 끝)
   final num? _idealAgeTo;
 
@@ -175,8 +182,10 @@ class IdealData extends WomenData{
   // 2.3.1 getter
   // idealHeadSizeDataRange [ 이상적인 머리 사이즈의 시작, 이상적인 머리사이즈의 끝]
   get idealHeadSizeDataRange => [_idealHeadSizeFrom, _idealHeadSizeTo];
+
   // idealHeightDataRange [ 이상적인 키의 시작, 이상적인 키의 끝]
   get idealHeightDataRange => [_idealHeightFrom, _idealHeightTo];
+
   // idealAgeDataRange [ 이상적인 나이의 시작, 이상적인 나이의 끝]
   get idealAgeDataRange => [_idealAgeFrom, _idealAgeTo];
 }
