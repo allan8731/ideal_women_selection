@@ -192,7 +192,3 @@ mixin AgeChecker {
           ? true
           : false;
 }
-
-class testError{
-  //todo wrong commit
-}
