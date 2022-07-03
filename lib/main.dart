@@ -192,8 +192,4 @@ mixin AgeChecker {
           ? true
           : false;
 }
-//v1
-
-//v2
-
-//v3
+//error delete
