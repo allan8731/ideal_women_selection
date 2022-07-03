@@ -192,3 +192,7 @@ mixin AgeChecker {
           ? true
           : false;
 }
+
+class ErrorCommitAndPRerrorerrorerror{
+  //잘못된 풀리퀘스트
+}
