@@ -192,3 +192,6 @@ mixin AgeChecker {
           ? true
           : false;
 }
+class WrongComitttt{
+  ///error commit and push
+}
